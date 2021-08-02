@@ -17,6 +17,9 @@ kafka_bootstrap_servers = environ.get(
     'KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
 kafka_topic = environ.get('KAFKA_TOPIC', 'network-data')
 
+print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
+print(f'KAFKA_TOPIC: {kafka_topic}')
+
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
 consumer = KafkaConsumer(
     kafka_topic, bootstrap_servers=kafka_bootstrap_servers)
