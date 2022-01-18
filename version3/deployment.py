@@ -32,15 +32,12 @@ for msg in consumer:
     message = msg.value.decode('utf-8')
     message2 = ast.literal_eval(message)
 
-    testing = []
-    for i in cols:
-        testing.append(float(message2[i]))
+    testing = [float(message2[i]) for i in cols]
     # test = pd.DataFrame([testing], columns = cols)
     test = pd.DataFrame(scaler.transform(
         np.asarray(testing).reshape(1, -1)), columns=cols)
     test_preds = grid_clf_acc.predict(test)
-    print("FLOW ID:", message2['FLOW_ID'],
-          "result: class", class_names[test_preds[0]])
+    print("FLOW ID:", message2['FLOW_ID'], "result: class", class_names[test_preds[0]])
 
     if test_preds[0] != 0:
         if message2["IPV4_SRC_ADDR"] not in attackers:
@@ -50,8 +47,7 @@ for msg in consumer:
                       ][class_names[test_preds[0]]] = 1
         else:
             attackers[message2["IPV4_SRC_ADDR"]]
-            [class_names[test_preds[0]]] = attackers[message2["IPV4_SRC_ADDR"]
-                                                     ][class_names[test_preds[0]]] + 1
+            [class_names[test_preds[0]]] = attackers[message2["IPV4_SRC_ADDR"]][class_names[test_preds[0]]] + 1
 
     if time.time() >= time_to_report:
         if attackers:
