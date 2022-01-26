@@ -5,8 +5,13 @@ from os import environ
 
 import numpy as np
 import pandas as pd
+from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
+
+settings = Dynaconf(
+    settings_files=["config.yaml"]
+)
 
 scaler = load('scaler.joblib')
 cols = load('columns.joblib')
@@ -21,8 +26,7 @@ print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
 print(f'KAFKA_TOPIC: {kafka_topic}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
-consumer = KafkaConsumer(
-    kafka_topic, bootstrap_servers=kafka_bootstrap_servers)
+consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_bootstrap_servers)
 
 rep_time = 60
 time_to_report = time.time() + rep_time

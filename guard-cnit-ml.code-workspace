@@ -5,5 +5,28 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"APPL",
+			"autopep",
+			"Bolla",
+			"Cflowmeter",
+			"dateutil",
+			"dtype",
+			"joblib",
+			"mccabe",
+			"multiclass",
+			"OOORDER",
+			"Pajo",
+			"pyflakes",
+			"pylint",
+			"pytz",
+			"Repetto",
+			"scikit",
+			"scipy",
+			"skfeature",
+			"threadpoolctl",
+			"UNTUNNELED"
+		]
+	}
 }

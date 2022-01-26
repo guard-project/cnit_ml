@@ -1,36 +1,43 @@
-import pandas as pd
+import collections
+import csv
+import itertools
+import os
+import pickle
+import re
+import sys
+import time
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os, sys, re, csv, collections, time, itertools, pickle
-#ml methods and metrics
-from sklearn.neural_network import MLPClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn import svm, tree
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import GridSearchCV
-from sklearn import preprocessing
+import pandas as pd
 import sklearn.metrics as metrics
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score, recall_score, precision_score
-from sklearn.preprocessing import StandardScaler
-from skfeature.function.similarity_based import fisher_score
-from sklearn.feature_selection import SelectKBest, chi2, f_classif, mutual_info_classif, f_regression
-from sklearn.model_selection import train_test_split
-from sklearn.svm import LinearSVC
 from imblearn.under_sampling import RandomUnderSampler
 from joblib import dump, load
-from datetime import datetime
+from skfeature.function.similarity_based import fisher_score
+from sklearn import preprocessing, svm, tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import SelectKBest, chi2, f_classif, f_regression, mutual_info_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score, precision_score,
+                             recall_score)
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+#ml methods and metrics
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVC
+from sklearn.tree import DecisionTreeClassifier
+
 sys.path.append(r'/home/odnan/anaconda3/lib/python3.7/site-packages/')
-import tensorflow as tf
-from tensorflow import keras
-from sklearn.calibration import CalibratedClassifierCV
 from itertools import groupby
-from sklearn.calibration import CalibratedClassifierCV
-from sklearn.metrics import classification_report
-from sklearn.metrics import plot_confusion_matrix
+
+import tensorflow as tf
 from imblearn.over_sampling import SMOTE, RandomOverSampler
+from sklearn.calibration import CalibratedClassifierCV
+from sklearn.metrics import classification_report, plot_confusion_matrix
+from tensorflow import keras
 
 start_time = time.time()
 #cols = ['IN_BYTES', 'IN_PKTS', 'OUT_BYTES', 'OUT_PKTS', 'FLOW_DURATION_MICROSECONDS', 'LONGEST_FLOW_PKT', 'SHORTEST_FLOW_PKT']
@@ -65,18 +72,18 @@ cols = ['IN_BYTES', 'IN_PKTS', 'OUT_BYTES', 'OUT_PKTS', 'MIN_IP_PKT_LEN', 'MAX_I
 
 
 def get_data(name, address, attackers, victim, reverse, label): 
-        files = sorted([f for f in os.listdir(address)])
-        flen = len(files)
+        files = sorted(list(os.listdir(address)))
+        file_len = len(files)
         extract = [sorted(c, key = len) for c in [list(i) for j, i in groupby(files, key=lambda a: re.findall('^\d+', a)[0])]]
         files = [j for sub in extract for j in sub]
-        if len(files)!=flen:
+        if len(files)!=file_len:
                 print("one of the files were not read correctly")
                 sys.exit()
         for f in files:
                 if f == files[0]:
-                        df = pd.read_csv(address+f, sep='|', dtype = str)
+                        df = pd.read_csv(address+f, sep='|', dtype=str)
                 else:
-                        df2 = pd.read_csv(address+f, sep='|', dtype = str)
+                        df2 = pd.read_csv(address+f, sep='|', dtype=str)
                         df = pd.concat([df, df2])
                 if df.shape[0] >= sample_limit:
                         df = df[:sample_limit]
