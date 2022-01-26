@@ -8,22 +8,29 @@ import pandas as pd
 from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
+from rich import pretty, traceback  # noqa: E402
+from rich.console import Console  # noqa: E402
+from rich.panel import Panel  # noqa: E402
+from src.about import project, title, version  # noqa: E402
 
-settings = Dynaconf(
+config = Dynaconf(
     settings_files=["config.yaml"]
 )
 
-scaler = load('scaler.joblib')
-cols = load('columns.joblib')
-class_names = load('class_names.joblib')
-grid_clf_acc = load('rfmodel_multiclass_new.joblib')
+scaler = load('joblib/scaler.joblib')
+cols = load('joblib/columns.joblib')
+class_names = load('joblib/class_names.joblib')
+grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
 
-kafka_bootstrap_servers = environ.get(
-    'KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
-kafka_topic = environ.get('KAFKA_TOPIC', 'network-data')
+kafka_bootstrap_servers = config.kafka.bootstrap_servers
+kafka_topic = config.kafka.topic
 
-print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
-print(f'KAFKA_TOPIC: {kafka_topic}')
+ident = f'{project} - {title} v:{version}'
+
+console = Console()
+console.print(Panel.fit(ident))
+console.print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
+console.print(f'KAFKA_TOPIC: {kafka_topic}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
 consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_bootstrap_servers)

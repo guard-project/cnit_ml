@@ -7,5 +7,5 @@ name: CNIT ML
 description: CNIT Machine Learning Algorithm Controller.
 commands:
   start:
-    script: python deployment.py
+    script: python src/deployment.py
     daemon: false
