@@ -1,14 +1,13 @@
 import ast
 import json
+import os
 import time
-from os import environ
 
 import numpy as np
 import pandas as pd
 from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
-from rich import pretty, traceback  # noqa: E402
 from rich.console import Console  # noqa: E402
 from rich.panel import Panel  # noqa: E402
 from src.about import project, title, version  # noqa: E402
@@ -17,20 +16,23 @@ config = Dynaconf(
     settings_files=["config.yaml"]
 )
 
+with open('.pidfile', 'w') as f:
+    f.write(str(os.getpid()))
+
 scaler = load('joblib/scaler.joblib')
 cols = load('joblib/columns.joblib')
 class_names = load('joblib/class_names.joblib')
 grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
 
-kafka_bootstrap_servers = config.kafka.bootstrap_servers
+kafka_bootstrap_servers = ','.join(config.kafka.bootstrap_servers)
 kafka_topic = config.kafka.topic
 
 ident = f'{project} - {title} v:{version}'
 
 console = Console()
 console.print(Panel.fit(ident))
-console.print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
-console.print(f'KAFKA_TOPIC: {kafka_topic}')
+console.print(f'Kafka Bootstrap Servers: {kafka_bootstrap_servers}')
+console.print(f'Kafka Topic: {kafka_topic}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
 consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_bootstrap_servers)
