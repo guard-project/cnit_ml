@@ -29,7 +29,8 @@ python_version = "3.10"
 
 [scripts]
 # program
-build = "bash scripts/build.sh"
+build-image = "bash scripts/build-image.sh"
+push-image = "bash scripts/push-image.sh"
 requirements = "bash scripts/requirements.sh"
 restart = "bash scripts/restart.sh"
 start = "bash scripts/start.sh"
