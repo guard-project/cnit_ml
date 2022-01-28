@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY joblib/ ./joblib/
 COPY src/ ./src/
 COPY scripts/ ./scripts/
-COPY RESTAble/settings.yaml ./
+COPY RESTable/settings.yaml ./
 COPY config.yaml ./
 
 CMD [ "/bin/bash", "scripts/restable-start.sh" ]
