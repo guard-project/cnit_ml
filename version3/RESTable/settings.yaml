@@ -3,7 +3,8 @@
 
 port: 9999
 debug: True
-name: CNIT ML
+project: GUARD
+title: CNIT ML
 description: CNIT Machine Learning Algorithm Controller.
 commands:
   start:
@@ -15,6 +16,10 @@ commands:
   restart:
     script: bash scripts/restart.sh
     daemon: false
+configurations:
+  config:
+    path: config.yaml
+    format: yaml
 parameters:
   kafka-bootstrap-servers:
     source: config.yaml

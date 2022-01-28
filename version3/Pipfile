@@ -10,6 +10,7 @@ kafka-python = "==2.0.2"
 numpy = "*"
 pandas = "*"
 rich = "*"
+sklearn = "*"
 
 [dev-packages]
 autopep8 = "*" # https://github.com/hhatto/autopep8
@@ -45,3 +46,4 @@ linter = "find src -iname '*.py' -exec pylint {} \\;"
 profiler-start = "vprof -c cmh src/deployment.py --output-file profiler.json"
 profiler-view = "vprof --input-file profiler.json"
 style-guide = "flake8 src/"
+security-scan = "docker scan cnit_ml"

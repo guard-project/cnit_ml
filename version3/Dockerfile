@@ -14,9 +14,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY joblib ./
-COPY src/ ./
-COPY scripts/ ./
+COPY joblib/ ./joblib/
+COPY src/ ./src/
+COPY scripts/ ./scripts/
 COPY RESTAble/settings.yaml ./
 COPY config.yaml ./
 

@@ -5,12 +5,12 @@ import time
 
 import numpy as np
 import pandas as pd
+from about import project, title, version  # noqa: E402
 from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
 from rich.console import Console  # noqa: E402
 from rich.panel import Panel  # noqa: E402
-from src.about import project, title, version  # noqa: E402
 
 config = Dynaconf(
     settings_files=["config.yaml"]
