@@ -1,7 +1,8 @@
-# Copyright (c) 2020-2029 Alex Carrega <contact@alexcarrega.com>
-# author: Alex Carrega <contact@alexcarrega.com>
+# Copyright (c) 2020-2029 GUARD <guard-project.eu>
+# author: Alex Carrega <alessandro.carrega@cnit.it>
 
 kafka:
-  bootstrap_servers: localhost:9092
+  bootstrap-servers:
+    - localhost:9092
   topic: network-data
   group-id: test-id

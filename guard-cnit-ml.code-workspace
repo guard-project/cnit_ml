@@ -8,17 +8,29 @@
 	"settings": {
 		"cSpell.words": [
 			"APPL",
+			"astroid",
 			"autopep",
 			"Bolla",
 			"Cflowmeter",
+			"codestyle",
+			"colorama",
+			"commonmark",
 			"dateutil",
 			"dtype",
+			"isort",
 			"joblib",
 			"mccabe",
 			"multiclass",
+			"mypy",
 			"OOORDER",
 			"Pajo",
+			"pathspec",
+			"pipenv",
+			"pipfile",
+			"platformdirs",
+			"pycallgraph",
 			"pyflakes",
+			"pygments",
 			"pylint",
 			"pytz",
 			"Repetto",
@@ -26,7 +38,9 @@
 			"scipy",
 			"skfeature",
 			"threadpoolctl",
-			"UNTUNNELED"
+			"tomli",
+			"UNTUNNELED",
+			"wrapt"
 		]
 	}
 }

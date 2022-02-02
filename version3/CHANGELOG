@@ -1,0 +1,4 @@
+# CNIT Machine Learning
+
+- Added configuration files.
+- Docker image with integration with RESTable (https://github.com/guard-project/RESTable).
