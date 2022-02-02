@@ -8,7 +8,6 @@ import pandas as pd
 from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
-from rich import pretty, traceback  # noqa: E402
 from rich.console import Console  # noqa: E402
 from rich.panel import Panel  # noqa: E402
 from src.about import project, title, version  # noqa: E402
@@ -24,6 +23,7 @@ grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
 
 kafka_bootstrap_servers = config.kafka.bootstrap_servers
 kafka_topic = config.kafka.topic
+kafka_group_id = config.kafka.group_id
 
 ident = f'{project} - {title} v:{version}'
 
@@ -33,7 +33,7 @@ console.print(f'KAFKA_BOOTSTRAP_SERVERS: {kafka_bootstrap_servers}')
 console.print(f'KAFKA_TOPIC: {kafka_topic}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
-consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_bootstrap_servers)
+consumer = KafkaConsumer(kafka_topic, group_id=kafka_group_id, bootstrap_servers=kafka_bootstrap_servers, )
 
 rep_time = 60
 time_to_report = time.time() + rep_time
