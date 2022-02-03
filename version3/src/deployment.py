@@ -24,7 +24,9 @@ cols = load('joblib/columns.joblib')
 class_names = load('joblib/class_names.joblib')
 grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
 
-kafka_bootstrap_servers = ','.join(config.kafka.bootstrap_servers)
+kafka_bootstrap_servers = config.kafka.bootstrap_servers
+if (isinstance(kafka_bootstrap_servers, list)):
+    kafka_bootstrap_servers = ','.join(kafka_bootstrap_servers)
 kafka_topic = config.kafka.topic
 kafka_group_id = config.kafka.group_id
 
