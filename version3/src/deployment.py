@@ -34,6 +34,7 @@ console = Console()
 console.print(Panel.fit(ident))
 console.print(f'Kafka Bootstrap Servers: {kafka_bootstrap_servers}')
 console.print(f'Kafka Topic: {kafka_topic}')
+console.print(f'Kafka Group ID: {kafka_group_id}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
 consumer = KafkaConsumer(kafka_topic, group_id=kafka_group_id, bootstrap_servers=kafka_bootstrap_servers, )
