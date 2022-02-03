@@ -33,3 +33,9 @@ parameters:
     xpath:
       - kafka
       - topic
+  kafka-group-id:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - kafka
+      - group-id
