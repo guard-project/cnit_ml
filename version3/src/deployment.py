@@ -2,6 +2,7 @@ import ast
 import json
 import os
 import time
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -9,8 +10,12 @@ from about import project, title, version  # noqa: E402
 from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
+from rich import pretty, traceback  # noqa: E402
 from rich.console import Console  # noqa: E402
 from rich.panel import Panel  # noqa: E402
+
+pretty.install()
+traceback.install(show_locals=False)
 
 config = Dynaconf(
     settings_files=["config.yaml"]
@@ -19,10 +24,12 @@ config = Dynaconf(
 with open('.pidfile', 'w') as f:
     f.write(str(os.getpid()))
 
-scaler = load('joblib/scaler.joblib')
-cols = load('joblib/columns.joblib')
-class_names = load('joblib/class_names.joblib')
-grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", category=UserWarning)
+    scaler = load('joblib/scaler.joblib')
+    cols = load('joblib/columns.joblib')
+    class_names = load('joblib/class_names.joblib')
+    grid_clf_acc = load('joblib/rfmodel_multiclass_new.joblib')
 
 kafka_bootstrap_servers = config.kafka.bootstrap_servers
 if (isinstance(kafka_bootstrap_servers, list)):
