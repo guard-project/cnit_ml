@@ -40,6 +40,7 @@ kafka_group_id = config.kafka.group_id
 ident = f'{project} - {title} v:{version}'
 
 console = Console()
+console.print("")
 console.print(Panel.fit(ident))
 console.print(f'Kafka Bootstrap Servers: {kafka_bootstrap_servers}')
 console.print(f'Kafka Topic: {kafka_topic}')
@@ -52,7 +53,6 @@ rep_time = 60
 time_to_report = time.time() + rep_time
 attackers = {}
 for msg in consumer:
-
     message = msg.value.decode('utf-8')
     message2 = ast.literal_eval(message)
 
