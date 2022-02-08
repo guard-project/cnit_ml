@@ -5,4 +5,4 @@ kafka:
   bootstrap-servers:
     - localhost:9092
   topic: network-data
-  group-id: test-id
+  group-id: test_id
