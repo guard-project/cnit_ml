@@ -47,7 +47,9 @@ console.print(f'Kafka Topic: {kafka_topic}')
 console.print(f'Kafka Group ID: {kafka_group_id}')
 
 producer = KafkaProducer(bootstrap_servers=kafka_bootstrap_servers)
-consumer = KafkaConsumer(kafka_topic, group_id=kafka_group_id, bootstrap_servers=kafka_bootstrap_servers, )
+consumer = KafkaConsumer(kafka_topic,group_id=kafka_group_id,
+                         bootstrap_servers=kafka_bootstrap_servers,
+                         auto_offset_reset='earliest')
 
 rep_time = 60
 time_to_report = time.time() + rep_time
