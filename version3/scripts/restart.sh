@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [ -f ".pidfile" ]; then
-    kill -19 $(cat .pidfile)
+    pid=$(cat .pidfile)
+    rm -rf .pidfile
+    kill -19 $pid
     echo "Restarted"
-    rm -f .pidfile
 else
     echo "Not possible to restart program" >&2
     exit 1
