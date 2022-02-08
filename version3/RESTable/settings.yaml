@@ -9,12 +9,15 @@ description: CNIT Machine Learning Algorithm Controller.
 commands:
   start:
     script: bash scripts/start.sh
-    daemon: false
+    daemon: true
   stop:
     script: bash scripts/stop.sh
     daemon: false
   restart:
     script: bash scripts/restart.sh
+    daemon: false
+  status:
+    script: bash scripts/status.sh
     daemon: false
 configurations:
   config:

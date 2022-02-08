@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python src/deployment.py &
+python src/deployment.py
