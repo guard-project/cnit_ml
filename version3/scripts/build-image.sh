@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t guardproject/cnit_ml:version3 .
+docker build --no-cache -t guardproject/cnit_ml:version3 .
