@@ -4,7 +4,8 @@ ENV KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 ENV KAFKA_TOPIC=network-data
 
 RUN apt-get update -y
-RUN apt-get install git httpie jq fish gcc g++ micro -y
+RUN apt-get install git httpie jq fish gcc g++ micro iputils-ping curl -y
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/alexcarrega/oh-my-bash/master/tools/install.sh)"
 
 ARG NOCACHE=true
 RUN git clone https://github.com/guard-project/RESTable.git /opt/cnit_ml
