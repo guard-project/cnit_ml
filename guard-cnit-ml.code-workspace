@@ -10,6 +10,7 @@
 			"APPL",
 			"astroid",
 			"autopep",
+			"autorestart",
 			"Bolla",
 			"Cflowmeter",
 			"codestyle",
@@ -40,6 +41,7 @@
 			"threadpoolctl",
 			"tomli",
 			"UNTUNNELED",
+			"watchmedo",
 			"wrapt"
 		]
 	}

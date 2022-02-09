@@ -2,3 +2,5 @@
 
 - Added configuration files.
 - Docker image with integration with RESTable (https://github.com/guard-project/RESTable).
+- Added status script and command available with REST.
+- Added autorestart scripts and command available with REST.

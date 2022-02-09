@@ -16,6 +16,9 @@ commands:
   restart:
     script: bash scripts/restart.sh
     daemon: false
+  autorestart:
+    script: bash scripts/autorestart.sh
+    daemon: true
   status:
     script: bash scripts/status.sh
     daemon: false
