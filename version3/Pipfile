@@ -28,13 +28,13 @@ python_version = "3.7"
 
 [scripts]
 # program
+autorestart = "bash scripts/autorestart.sh"
 build-image = "bash scripts/build-image.sh"
 push-image = "bash scripts/push-image.sh"
 requirements = "bash scripts/requirements.sh"
 restart = "bash scripts/restart.sh"
 start = "bash scripts/start.sh"
 stop = "bash scripts/stop.sh"
-autorestart = "bash scripts/autorestart.sh"
 # dev
 changelog = "bat CHANGELOG"
 codestyle = "find src -iname '*.py' -exec pycodestyle --first {} \\;"
