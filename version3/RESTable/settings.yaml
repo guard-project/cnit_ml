@@ -22,6 +22,9 @@ commands:
   status:
     script: bash scripts/status.sh
     daemon: false
+  reset:
+    script: bash scripts/reset.sh
+    daemon: false
 configurations:
   config:
     path: config.yaml
