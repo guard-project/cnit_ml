@@ -2,7 +2,6 @@
 
 if [ -f ".pidfile" ]; then
     pid=$(cat .pidfile)
-    rm -rf .pidfile
     kill -19 $pid
     echo "Restarted"
 else
