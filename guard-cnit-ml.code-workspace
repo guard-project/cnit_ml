@@ -45,6 +45,7 @@
 			"OOORDER",
 			"Pajo",
 			"pathspec",
+			"pidof",
 			"pipenv",
 			"pipfile",
 			"platformdirs",

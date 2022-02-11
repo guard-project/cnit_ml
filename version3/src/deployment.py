@@ -19,8 +19,11 @@ traceback.install(show_locals=False)
 
 config = Dynaconf(settings_files=["config.yaml"])
 
+pid = str(os.getpid())
 with open(".pidfile", "w") as f:
-    f.write(str(os.getpid()))
+    f.write(pid)
+with open(f".pipfile.{pid}") as f:
+    f.write(pid)
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=UserWarning)

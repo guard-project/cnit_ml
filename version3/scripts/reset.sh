@@ -1,11 +1,11 @@
 #!/bin/bash
 
-pid=$(pid of python)
+pid=$(pidof python)
 if [ -z "$pid" ]; then
-    else "Reset not possible"
+    echo "Reset not possible"
     exit 1
 else
-    killall $pid
-    rm -rf .pidfile
+    rm -rf .pidfile .pidfile.*
     echo "Reset"
+    kill -9 $pid
 fi
