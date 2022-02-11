@@ -3,8 +3,8 @@
 if [ -f ".pidfile" ]; then
     kill -9 $(cat .pidfile)
     echo "Stopped"
-    rm -f .pidfile
+    rm -f .pidfile .pidfile.*
 else
-    echo "Not possible to stop program" >&2
+    echo "Stop not possible"
     exit 1
 fi
