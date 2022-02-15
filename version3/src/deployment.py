@@ -2,6 +2,7 @@ import ast
 import json
 import logging
 import os
+import sys
 import time
 import warnings
 
@@ -12,6 +13,7 @@ from dynaconf import Dynaconf
 from joblib import load
 from kafka import KafkaConsumer, KafkaProducer
 from rich import pretty, print, traceback  # noqa: E402
+from rich.console import Console
 from rich.logging import RichHandler
 from rich.panel import Panel  # noqa: E402
 
@@ -23,10 +25,18 @@ config = Dynaconf(settings_files=["config.yaml"])
 log_data = config.get('log', {})
 log_level = log_data.get('level', 'NOTSET')
 log_format = log_data.get('format', '%(message)s')
-logging.basicConfig(filename="/proc/1/fd/1",
-                    level=log_level, format=log_format,
+
+output_filename = "/proc/1/fd/1"
+if (os.path.exists(output_filename)):
+    output_file = open(output_filename, "wt")
+    console = Console(file=output_file)
+else:
+    console = Console(file=sys.stdout)
+
+logging.basicConfig(level=log_level, format=log_format,
                     datefmt="[%X]",
-                    handlers=[RichHandler(rich_tracebacks=True,
+                    handlers=[RichHandler(console=console,
+                                          rich_tracebacks=True,
                                           omit_repeated_times=False,
                                           markup=True)]
                     )
