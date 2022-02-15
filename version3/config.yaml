@@ -6,3 +6,6 @@ kafka:
     - localhost:9092
   topic: network-data
   group-id: test_id
+log:
+  format: "%(message)s"
+  level: INFO
