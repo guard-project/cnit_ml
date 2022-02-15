@@ -8,4 +8,4 @@ __pycache__
 /log
 Pipfile.lock
 .pidfile
-.pipfile.*
+.pidfile.*

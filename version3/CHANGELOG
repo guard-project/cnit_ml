@@ -5,3 +5,4 @@
 - Added status script and command available with REST interface.
 - Added autorestart script and command available with REST interface.
 - Added reset script and command available with REST interface.
+- Added log message and configuration settings.

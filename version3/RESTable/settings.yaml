@@ -48,3 +48,15 @@ parameters:
     xpath:
       - kafka
       - group-id
+  log-level:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - log
+      - level
+  log-format:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - log
+      - format

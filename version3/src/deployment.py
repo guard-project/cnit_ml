@@ -34,7 +34,7 @@ log = logging.getLogger("rich")
 pid = str(os.getpid())
 with open(".pidfile", "w") as f:
     f.write(pid)
-with open(f".pipfile.{pid}", "w") as f:
+with open(f".pidfile.{pid}", "w") as f:
     f.write(pid)
 
 with warnings.catch_warnings():
