@@ -23,12 +23,13 @@ config = Dynaconf(settings_files=["config.yaml"])
 log_data = config.get('log', {})
 log_level = log_data.get('level', 'NOTSET')
 log_format = log_data.get('format', '%(message)s')
-logging.basicConfig(
-    level=log_level, format=log_format,
-    datefmt="[%X]", handlers=[RichHandler(rich_tracebacks=True,
+logging.basicConfig(filename="/proc/1/fd/1",
+                    level=log_level, format=log_format,
+                    datefmt="[%X]",
+                    handlers=[RichHandler(rich_tracebacks=True,
                                           omit_repeated_times=False,
                                           markup=True)]
-)
+                    )
 log = logging.getLogger("rich")
 
 pid = str(os.getpid())
