@@ -2,7 +2,7 @@
 
 if [ -f ".pidfile" ]; then
     pid=$(cat .pidfile)
-    kill -19 $pid
+    kill -1 $pid
     echo "Restarted"
 else
     echo "Not possible to restart program" >&2

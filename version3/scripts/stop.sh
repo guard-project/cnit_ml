@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f ".pidfile" ]; then
-    kill -9 $(cat .pidfile)
+    kill -15 $(cat .pidfile)
     echo "Stopped"
     rm -f .pidfile .pidfile.*
 else
