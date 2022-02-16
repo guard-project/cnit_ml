@@ -5,7 +5,7 @@ kafka:
   bootstrap-servers:
     - localhost:9092
   topic: network-data
-  group-id: test_id
+  group-id: group_id
 log:
   format: "%(message)s"
   level: INFO
