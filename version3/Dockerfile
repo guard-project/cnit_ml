@@ -21,3 +21,6 @@ RUN pip install --no-cache-dir -r requirements-ml.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 CMD [ "/bin/bash", "scripts/restable-start.sh" ]
+
+ARG RESTable_PORT=9999
+EXPOSE $RESTable_PORT
