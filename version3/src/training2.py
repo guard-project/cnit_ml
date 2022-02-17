@@ -165,15 +165,17 @@ def get_data(name, address, attackers, victim, reverse, label):
     df[cols] = df[cols].apply(pd.to_numeric)
     df["Label"] = [0] * len(df)
     df.loc[
-        ((df["IPV4_SRC_ADDR"].isin(attackers)) &
-         (df["IPV4_DST_ADDR"].isin(victim))),
+        ((df["IPV4_SRC_ADDR"]
+            .isin(attackers)) & (df["IPV4_DST_ADDR"]
+                                 .isin(victim))),
         "Label",
     ] = label
     if reverse:
         df.loc[
             (
-                (df["IPV4_SRC_ADDR"].isin(victim))
-                & (df["IPV4_DST_ADDR"].isin(attackers))
+                (df["IPV4_SRC_ADDR"]
+                 .isin(victim)) & (df["IPV4_DST_ADDR"]
+                                   .isin(attackers))
             ),
             "Label",
         ] = label
