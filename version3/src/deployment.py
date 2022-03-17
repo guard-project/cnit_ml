@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import signal
+import ssl
 import sys
 import time
 import warnings
@@ -25,8 +26,12 @@ class Data:
     log = None
 
     kafka_bootstrap_servers = None
+    kafka_client_id = None
     kafka_topic = None
     kafka_group_id = None
+    kafka_security_protocol = 'PLAINTEXT'
+    kafka_ssl_cafile = None
+    kafka_ssl_certfile = None
     log_level = None
     log_format = None
 
@@ -45,6 +50,11 @@ class Data:
         cls.kafka_bootstrap_servers = data.kafka.bootstrap_servers
         if isinstance(cls.kafka_bootstrap_servers, list):
             cls.kafka_bootstrap_servers = ",".join(cls.kafka_bootstrap_servers)
+        cls.kafka_client_id = data.kafka.client_id
+        cls.kafka_security_protocol = data.kafka.security_protocol
+        if 'ssl' in cls.kafka_security_protocol.lower():
+            cls.kafka_ssl_cafile = data.kafka.ssl_cafile
+            cls.kafka_ssl_certfile = data.kafka.ssl_certfile
         cls.kafka_topic = data.kafka.topic
         cls.kafka_group_id = data.kafka.group_id
         cls.log_level = data.log.level
@@ -53,6 +63,11 @@ class Data:
     @classmethod
     def print(cls):
         cls.console.print(f"Kafka Bootstrap Servers: {cls.kafka_bootstrap_servers}")
+        cls.console.print(f"Kafka Client ID: {cls.kafka_client_id}")
+        cls.console.print(f"Kafka Security Protocol: {cls.kafka_security_protocol}")
+        if 'ssl' in cls.kafka_security_protocol.lower():
+            cls.console.print(f"Kafka CAfile: {cls.kafka_ssl_cafile}")
+            cls.console.print(f"Kafka Certfile: {cls.kafka_ssl_certfile}")
         cls.console.print(f"Kafka Topic: {cls.kafka_topic}")
         cls.console.print(f"Kafka Group ID: {cls.kafka_group_id}")
         cls.console.print(f"LOG Format: {cls.log_format}")
@@ -68,12 +83,28 @@ class Data:
                                                   markup=True)]
                             )
         cls.log = logging.getLogger("rich")
-        cls.producer = KafkaProducer(bootstrap_servers=cls.kafka_bootstrap_servers)
+
+        ssl_ctx = None
+        if 'ssl' in cls.kafka_security_protocol.lower() \
+            and cls.kafka_ssl_cafile is not None        \
+            and cls.kafka_ssl_certfile is not None:
+            ssl_ctx = ssl.create_default_context(cafile=cls.kafka_ssl_cafile)
+            ssl_ctx.load_cert_chain(cls.kafka_ssl_certfile)
+
+        cls.producer = KafkaProducer(
+            bootstrap_servers=cls.kafka_bootstrap_servers,
+            client_id=cls.kafka_client_id,
+            security_protocol=cls.kafka_security_protocol,
+            ssl_context=ssl_ctx
+        )
         cls.consumer = KafkaConsumer(
             cls.kafka_topic,
             group_id=cls.kafka_group_id,
             bootstrap_servers=cls.kafka_bootstrap_servers,
             auto_offset_reset="earliest",
+            security_protocol=cls.kafka_security_protocol,
+            client_id=cls.kafka_client_id,
+            ssl_context=ssl_ctx
         )
 
 
