@@ -1,10 +1,10 @@
 FROM python:3.7-slim
 
-RUN useradd -rm -d /home/guard -s /bin/bash -g root -G sudo -u 1001 guard 
-USER guard
-
 RUN apt-get update -y
 RUN apt-get install git httpie jq fish gcc g++ micro iputils-ping curl -y
+
+RUN useradd -rm -d /home/guard -s /bin/bash -g root -G sudo -u 1001 guard 
+USER guard
 
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/alexcarrega/oh-my-bash/master/tools/install.sh)"
 
