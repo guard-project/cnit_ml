@@ -4,9 +4,12 @@ RUN apt-get update -y
 RUN apt-get install git httpie jq fish gcc g++ micro iputils-ping curl -y
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/alexcarrega/oh-my-bash/master/tools/install.sh)"
 
+RUN useradd -rm -d /home/guard -s /bin/bash -g root -G sudo -u 1001 guard 
+USER guard
+
 ARG NOCACHE=true
-RUN git clone https://github.com/guard-project/RESTable.git /opt/cnit_ml
-WORKDIR /opt/cnit_ml
+RUN git clone https://github.com/guard-project/RESTable.git /home/guard/cnit_ml
+WORKDIR /home/guard/cnit_ml
 RUN mv scripts/start.sh scripts/restable-start.sh
 
 COPY requirements.txt requirements-ml.txt
