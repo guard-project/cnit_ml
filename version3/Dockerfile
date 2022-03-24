@@ -16,6 +16,7 @@ COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY RESTable/settings.yaml ./
 COPY config.yaml ./
+COPY keys/ ./keys/
 
 RUN pip install cython
 RUN pip install --no-cache-dir -r requirements-ml.txt
