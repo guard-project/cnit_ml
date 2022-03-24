@@ -4,6 +4,10 @@
 kafka:
   bootstrap-servers:
     - localhost:9092
+  client-id: cnit_ml
+  security-protocol: SSL
+  ssl-cafile: truststore.pem
+  ssl-certfile: keystore.pem
   topic: network-data
   group-id: group_id
 log:
