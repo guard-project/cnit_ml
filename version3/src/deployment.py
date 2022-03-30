@@ -87,7 +87,7 @@ class Data:
         ssl_ctx = None
         if 'ssl' in cls.kafka_security_protocol.lower() \
             and cls.kafka_ssl_cafile is not None        \
-            and cls.kafka_ssl_certfile is not None:
+                and cls.kafka_ssl_certfile is not None:
             ssl_ctx = ssl.create_default_context(cafile=cls.kafka_ssl_cafile)
             ssl_ctx.load_cert_chain(cls.kafka_ssl_certfile)
             ssl_ctx.verify_mode = ssl.CERT_NONE
