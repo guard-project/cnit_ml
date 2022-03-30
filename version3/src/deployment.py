@@ -90,6 +90,7 @@ class Data:
                 and cls.kafka_ssl_certfile is not None:
             ssl_ctx = ssl.create_default_context(cafile=cls.kafka_ssl_cafile)
             ssl_ctx.load_cert_chain(cls.kafka_ssl_certfile)
+            ssl_ctx.check_hostname = False
             ssl_ctx.verify_mode = ssl.CERT_NONE
 
         cls.producer = KafkaProducer(
