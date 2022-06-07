@@ -13,3 +13,6 @@ kafka:
 log:
   format: "%(message)s"
   level: INFO
+version: v3
+sources:
+  - 120.34.5.6

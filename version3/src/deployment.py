@@ -59,6 +59,8 @@ class Data:
         cls.kafka_group_id = data.kafka.group_id
         cls.log_level = data.log.level
         cls.log_format = data.log.format
+        cls.version = data.version
+        cls.sources = data.get('sources', [])
 
     @classmethod
     def print(cls):
@@ -72,6 +74,7 @@ class Data:
         cls.console.print(f"Kafka Group ID: {cls.kafka_group_id}")
         cls.console.print(f"LOG Format: {cls.log_format}")
         cls.console.print(f"LOG Level: {cls.log_level}")
+        cls.console.print(f"Version: {cls.version}")
 
     @classmethod
     def set(cls):
@@ -83,6 +86,10 @@ class Data:
                                                   markup=True)]
                             )
         cls.log = logging.getLogger("rich")
+
+        if Data.version not in ["v3", "v3b"]:
+            Data.log.error(f"Version {Data.version} is not supported")
+            exit(1)
 
         ssl_ctx = None
         if 'ssl' in cls.kafka_security_protocol.lower() \
@@ -176,10 +183,13 @@ try:
                 )
                 test_preds = grid_clf_acc.predict(test)
                 class_name_test_preds = class_names[test_preds[0]]
-                Data.log.info(f'Flow ID: [red]{message2["FLOW_ID"]}[/red] - Result Class: [red]{class_name_test_preds}[/red]')
+                Data.log.info(f'Flow ID: [red]{message2["FLOW_ID"]}[/ red] - '
+                              f'Result Class: [red]{class_name_test_preds}[/ red]')
 
-                if test_preds[0] != 0:
-                    ipv4_src_addr = message2["IPV4_SRC_ADDR"]
+                ipv4_src_addr = message2["IPV4_SRC_ADDR"]
+                if (Data.version == "v3" and test_preds[0] != 0) or \
+                        (Data.version == "v3a" and
+                            ipv4_src_addr in Data.sources):
                     if ipv4_src_addr not in attackers:
                         attackers[ipv4_src_addr] = {}
 
