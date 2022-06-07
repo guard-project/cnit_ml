@@ -61,6 +61,7 @@ class Data:
         cls.log_format = data.log.format
         cls.version = data.version
         cls.sources = data.get('sources', [])
+        cls.report_time = data.get('report-time', 60)
 
     @classmethod
     def print(cls):
@@ -75,6 +76,7 @@ class Data:
         cls.console.print(f"LOG Format: {cls.log_format}")
         cls.console.print(f"LOG Level: {cls.log_level}")
         cls.console.print(f"Version: {cls.version}")
+        cls.console.print(f"Report Time: {cls.report_time}")
 
     @classmethod
     def set(cls):
@@ -89,7 +91,7 @@ class Data:
 
         if Data.version not in ["v3", "v3b"]:
             Data.log.error(f"Version {Data.version} is not supported")
-            exit(1)
+            signal_stop()
 
         ssl_ctx = None
         if 'ssl' in cls.kafka_security_protocol.lower() \
@@ -168,7 +170,7 @@ try:
             Data.console.rule('Logging')
             Data.set()
 
-            rep_time = 60
+            rep_time = Data.report_time
             time_to_report = time.time() + rep_time
             attackers = {}
             for msg in Data.consumer:
@@ -188,7 +190,7 @@ try:
 
                 ipv4_src_addr = message2["IPV4_SRC_ADDR"]
                 if (Data.version == "v3" and test_preds[0] != 0) or \
-                        (Data.version == "v3a" and
+                        (Data.version == "v3b" and
                             ipv4_src_addr in Data.sources):
                     if ipv4_src_addr not in attackers:
                         attackers[ipv4_src_addr] = {}
