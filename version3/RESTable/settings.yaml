@@ -60,3 +60,18 @@ parameters:
     xpath:
       - log
       - format
+  version:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - version
+  sources:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - sources
+  report-time:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - report-time
