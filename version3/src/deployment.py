@@ -190,7 +190,7 @@ try:
 
                 ipv4_src_addr = message2["IPV4_SRC_ADDR"]
                 if (Data.version == "v3" and test_preds[0] != 0) or \
-                        (Data.version == "v3b" and
+                        (Data.version == "v3b" and test_preds[0] != 0 and
                             ipv4_src_addr in Data.sources):
                     if ipv4_src_addr not in attackers:
                         attackers[ipv4_src_addr] = {}
