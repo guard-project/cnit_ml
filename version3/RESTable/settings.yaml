@@ -30,6 +30,12 @@ configurations:
     path: config.yaml
     format: yaml
 parameters:
+  kafka-security-protocol:
+    source: config.yaml
+    format: yaml
+    xpath:
+      - kafka
+      - security-protocol
   kafka-bootstrap-servers:
     source: config.yaml
     format: yaml
